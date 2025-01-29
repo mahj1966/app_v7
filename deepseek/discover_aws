@@ -11,7 +11,6 @@ import time
 import sys
 import base64
 import cx_Oracle
-#import datetime
 from datetime import date
 from datetime import timedelta
 import subprocess
@@ -20,11 +19,6 @@ import subprocess
 
 
 CHARSET = 'UTF-8'
-
-#################################################
-# execute sql statement COLLECT DATA RESOURCES
-#################################################
-
 resourceAccount = sys.argv[1]
 resourceRegion = sys.argv[2]
 resourceType = sys.argv[3]
@@ -42,7 +36,7 @@ if resourceType == 'EC2_eni' :
     ec2_instances = ec2_client.describe_network_interfaces()
 
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -53,7 +47,7 @@ if resourceType == 'EC2_eni' :
             'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes,:creation_date)')
 
 
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
 
@@ -69,7 +63,7 @@ if resourceType == 'EC2_sg' :
     ec2_instances = ec2_client.describe_security_groups()
 
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -79,7 +73,7 @@ if resourceType == 'EC2_sg' :
     sql = ('insert into aws_resources_json(account_id,region,json_data,argument_name,argument_value,attributes,creation_date) '
             'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes,:creation_date)')
 
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
 
@@ -95,7 +89,7 @@ if resourceType == 'EC2_Volumes' :
     ec2_instances = ec2_client.describe_volumes()
 
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -104,7 +98,7 @@ if resourceType == 'EC2_Volumes' :
     sql = ('insert into aws_resources_json(account_id,region,json_data,argument_name,argument_value,attributes,creation_date) '
             'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes,:creation_date)')
 
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -117,7 +111,7 @@ if resourceType == 'EC2' :
 
     ec2_client = boto3.client('ec2',region_name=resourceRegion)
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
             cursor = connection.cursor()
@@ -132,7 +126,7 @@ if resourceType == 'EC2' :
     for instance in ec2_instance:
         sql = ('insert into aws_resources_json(account_id,region,json_data,argument_name,argument_value,attributes,res_id,creation_date) '
                     'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes, :res_id,:creation_date)')
-        with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+        with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
             cursor = connection.cursor()
@@ -150,7 +144,7 @@ if resourceType == 'EC2_type' :
     #ec2_instances = ec2_client.describe_instance_types()
 
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -169,7 +163,7 @@ if resourceType == 'EC2_type' :
         sql = ('insert into aws_resources_json(account_id,region,json_data,argument_name,argument_value,attributes,creation_date) '
             'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes,:creation_date)')
 
-        with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+        with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
             cursor = connection.cursor()
@@ -187,7 +181,7 @@ if resourceType == 'subnet_get_Info' :
     ec2_instances = ec2_client.describe_subnets()
 
     sql = ("delete aws_resources_json  where trim(account_id)= :resourceAccount and trim(region)=:resourceRegion and trim(argument_name)=:argument_name and trim(argument_value)=:argument_value" )
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
@@ -196,7 +190,7 @@ if resourceType == 'subnet_get_Info' :
     sql = ('insert into aws_resources_json(account_id,region,json_data,argument_name,argument_value,attributes,creation_date) '
             'values(:account,:region,:json_data,:argument_name,:argument_value,:attributes,:creation_date)')
 
-    with cx_Oracle.connect(user="dms", password="E23h15a28j_03",
+    with cx_Oracle.connect(user="dms", password="password_1",
                     dsn="RDS_XEPDB1",
                     encoding="UTF-8", nencoding = "UTF-8") as connection:
         cursor = connection.cursor()
